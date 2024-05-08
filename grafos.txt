@@ -1,0 +1,45 @@
+Los grafos se clasifican en base a sus nodos y los enlaces. Se pueden diferenciar varios tipos de grafos dependiendo del tipo de relación que existe entre sus nodos.
+
+Grafos no dirigidos
+
+Los enlaces no tienen dirección, es decir, si un nodo  A
+  está conectado a un nodo  B
+ , entonces  B
+  también está conectado a  A
+ . Un ejemplo de grafo no dirigido es una red social donde los usuarios están conectados entre sí a través de vínculos de amistad.
+
+
+
+Ejemplo de un red social, donde los nodos son usuarios y los ejes indican si existe una relación de amistad entre ellos. Es un grafo no dirigido porque las conexiones no tienen direccionalidad.
+
+
+Grafos dirigidos
+
+Los enlaces tienen una dirección, es decir, si un nodo  A
+  está conectado a un nodo  B
+ ,  B
+  no está necesariamente conectado a  A
+ . Un ejemplo de un grafo dirigido es una red de llamadas telefónicas donde los nodos son personas y los ejes muestran cada llamada, teniendo en cuenta quién llama a quién.
+
+
+
+
+Ejemplo de grafo dirigido.
+
+**Grafos ponderados** Los enlaces tienen un peso asociado, que representa la importancia o la intensidad de la relación entre los nodos. Un ejemplo de grafo ponderado es una red de ciudades donde los enlaces representan las rutas de transporte y el peso representa la distancia entre ciudades.
+
+
+
+
+Ejemplo de un red de ciudades, donde los nodos son ciudades y los ejes la distancia entre ellas. Es un grafo ponderado.
+
+
+Grafos bipartitos
+
+Los nodos se dividen en dos conjuntos disjuntos (dos tipos de nodos), y solo se permiten enlaces entre nodos de diferentes conjuntos. Un ejemplo de grafo bipartito es una red de películas y actores, donde los nodos de un conjunto son las películas y los nodos del otro conjunto son los actores; y solo se permiten enlaces entre películas y actores.
+
+
+
+
+
+Ejemplo de un grafo bipartito, donde los nodos pueden ser de dos tipos: actores o películas.
