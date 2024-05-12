@@ -32,3 +32,32 @@ grafo.agregar_arco(4, 1, 1) #El último vértice
 
 # Mostrarr el grafo
 grafo.imprimir_grafo()
+
+
+
+
+# FUNCIÓN DE FLOYD WARSHALL
+def floyd_warshall(grafo):
+    distancias = grafo.matriz
+
+    # Iterar sobre todos los vértices como nodos intermedios
+    for k in range(grafo.vertices):
+        # Iterar sobre todos los vértices como nodos de origen
+        for i in range(grafo.vertices):
+            # Iterar sobre todos los vértices como nodos de destino
+            for j in range(grafo.vertices):
+                # Si el camino de i a j a través de k es más corto, actualizar la distancia
+                if distancias[i][j] > distancias[i][k] + distancias[k][j]:
+                    distancias[i][j] = distancias[i][k] + distancias[k][j]
+
+    return distancias
+
+# Ejemplo de uso
+
+
+# Llamar a la función floyd_warshall para obtener las distancias mínimas
+distancias_minimas = floyd_warshall(grafo)
+
+# Imprimir las distancias mínimas entre todos los pares de ciudades
+for fila in distancias_minimas:     
+    print(fila)
