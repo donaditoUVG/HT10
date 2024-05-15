@@ -50,7 +50,7 @@ def encontrar_centro(grafo):
 
 # Crear el diccionario para mapear nombres de ciudades a índices
 ciudades = {}
-with open("C:\\Users\\lirof\\OneDrive\\Escritorio\\DONADO UVG YESSIR! HT10\\HT10\\lib\\grafos.txt", 'r') as archivo:
+with open("C:/Users/josep/OneDrive - UVG/SEMESTRE III/Poo/HT10/HT10/lib/grafos.txt", 'r') as archivo:
     lineas = archivo.readlines()
     for i, linea in enumerate(lineas):
         origen, destino, _, _, _, _ = linea.split()
@@ -63,7 +63,7 @@ with open("C:\\Users\\lirof\\OneDrive\\Escritorio\\DONADO UVG YESSIR! HT10\\HT10
 grafo = Grafo(len(ciudades))
 
 # Leer el archivo y construir el grafo
-leer_archivo("C:\\Users\\lirof\\OneDrive\\Escritorio\\DONADO UVG YESSIR! HT10\\HT10\\lib\\grafos.txt", grafo, ciudades)
+leer_archivo("C:/Users/josep/OneDrive - UVG/SEMESTRE III/Poo/HT10/HT10/lib/grafos.txt", grafo, ciudades)
 
 # Aplicar el algoritmo de Floyd-Warshall
 distancias_minimas = floyd_warshall(grafo)
@@ -82,22 +82,47 @@ def ruta_mas_corta():
     if distancia == float('inf'):
         print("No hay ruta disponible entre estas ciudades.")
         return
-    print(f"La ruta más corta entre {origen} y {destino} es de {distancia} unidades.")
+    print(f"La ruta más corta entre {origen} y {destino} es de {distancia} horas.")
 
-# Función para encontrar la ciudad en el centro del grafo
-def ciudad_centro():
-    centro_idx = encontrar_centro(grafo)
+# Función para encontrar la ciudad en el centro 
+def ciudad_centro(grafo, ciudades):
+    excentricidades = []
+    for vertice in range(grafo.vertices):
+        excentricidades.append(calcular_excentricidad(grafo, vertice))
+    centro = excentricidades.index(min(excentricidades))
     for ciudad, idx in ciudades.items():
-        if idx == centro_idx:
+        if idx == centro:
             print(f"La ciudad que queda en el centro del grafo es: {ciudad}")
             break
+def encontrar_centro(grafo):
+    excentricidades = []  # Lista para almacenar las excentricidades de cada vértice
+    for i in range(grafo.vertices):
+        excentricidad = calcular_excentricidad(grafo, i)
+        excentricidades.append(excentricidad)
+
+    min_excentricidad = min(excentricidades)
+    centros = [i for i, e in enumerate(excentricidades) if e == min_excentricidad]
+    return centros
+
+def calcular_excentricidad(grafo, vertice):
+    distancias_minimas = floyd_warshall_modificado(grafo, vertice)
+    return max(distancias_minimas)
+
+def floyd_warshall_modificado(grafo, vertice):
+    distancias = grafo.matriz.copy()
+    for k in range(grafo.vertices):
+        for i in range(grafo.vertices):
+            for j in range(grafo.vertices):
+                distancias[i][j] = min(distancias[i][j], distancias[i][k] + distancias[k][j])
+    return distancias[vertice]
+
 
 # Función para modificar el grafo según las opciones especificadas
 def modificar_grafo():
     print("Opciones de modificación:")
     print("a. Interrupción de tráfico entre un par de ciudades.")
-    print("b. Establecer una conexión entre ciudad1 y ciudad2.")
-    print("c. Indicar el clima entre un par de ciudades.")
+    print("b. Establecer una conexión entre una ciudad (ciudad1) y otra (ciudad2).")
+    print("c. Aztualiza el estado del clima entre un par de ciudades.")
     opcion = input("Seleccione una opción (a/b/c): ")
     if opcion == 'a':
         origen = input("Ingrese el nombre de la ciudad de origen: ")
@@ -148,7 +173,7 @@ while True:
     if opcion == '1':
         ruta_mas_corta()
     elif opcion == '2':
-        ciudad_centro()
+        calcular_excentricidad()
     elif opcion == '3':
         modificar_grafo()
     elif opcion == '4':
